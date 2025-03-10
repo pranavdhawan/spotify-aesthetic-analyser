@@ -68,27 +68,17 @@ const sanitizeGPTResponse = (raw) => {
   
       if (response.data.tracks.items.length > 0) {
         const track = response.data.tracks.items[0];
-        // Try to get the smallest image first, then fallback to larger ones
-        const image = track.album.images
-          .sort((a, b) => (a.height || 0) - (b.height || 0))
-          .find(img => img.url)?.url;
-  
         return {
           name: trackName,
           artist: artistName,
-          image: image || 'https://placehold.co/160x160?text=No+Image',
+          image: track.album.images[0]?.url || null,
           genre: track.album.genres?.[0] || "Unknown"
         };
       }
       return null;
     } catch (error) {
       console.error('Failed to fetch track image:', error);
-      return {
-        name: trackName,
-        artist: artistName,
-        image: 'https://placehold.co/160x160?text=Error',
-        genre: "Unknown"
-      };
+      return null;
     }
   };
   
@@ -330,31 +320,31 @@ CRITICAL FORMATTING RULES:
     { 
       "name": "...", 
       "artist": "...",
-      "image": "https://i.scdn.com/image/...",
+      "image": "https://i.scdn.co/image/...",
       "genre": "..."
     },
     { 
       "name": "...", 
       "artist": "...",
-      "image": "https://i.scdn.com/image/...",
+      "image": "https://i.scdn.co/image/...",
       "genre": "..."
     },
     { 
       "name": "...", 
       "artist": "...",
-      "image": "https://i.scdn.com/image/...",
+      "image": "https://i.scdn.co/image/...",
       "genre": "..."
     },
     { 
       "name": "...", 
       "artist": "...",
-      "image": "https://i.scdn.com/image/...",
+      "image": "https://i.scdn.co/image/...",
       "genre": "..."
     },
     { 
       "name": "...", 
       "artist": "...",
-      "image": "https://i.scdn.com/image/...",
+      "image": "https://i.scdn.co/image/...",
       "genre": "..."
     }
   ]

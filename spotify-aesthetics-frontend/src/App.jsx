@@ -26,7 +26,7 @@ function App() {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/user-data', {
+      const response = await axios.get('https://spotify-aesthetic-analyser-backend.vercel.app/user-data', {
         headers: { Authorization: `Bearer ${accessToken}` }
       })
       setUserData(response.data)
@@ -40,7 +40,7 @@ function App() {
   const analyzeAesthetic = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:3000/analyze',
+        'https://spotify-aesthetic-analyser-backend.vercel.app/analyze',
         {
           artists: userData?.topArtists || [],
           tracks: userData?.topTracks || [],
@@ -159,7 +159,7 @@ const ImageRow = ({ title, items }) => (
 
         {!accessToken ? (
           <a
-            href="http://localhost:3000/login"
+            href="https://spotify-aesthetic-analyser-backend.vercel.app/login"
             className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition"
           >
             Login with Spotify
